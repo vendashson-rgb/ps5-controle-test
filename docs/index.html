@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PS-5 Controle Test — Teste, valide e calibre o controle DualSense (PS5) pelo celular Android</title>
+<meta name="description" content="PS-5 Controle Test: app Android para testar, validar e calibrar o controle DualSense do PS5 pelo cabo USB. Teste de botões, analógicos, gatilhos, touchpad, giroscópio, vibração, luzes, alto-falante e microfone. 2 dias grátis, depois plano anual de R$ 24,80.">
+<meta name="keywords" content="PS-5 Controle Test, testar controle PS5, testar DualSense, calibrar analógico PS5, drift DualSense, teste de controle PS5 celular, app testar controle PS5 Android, validar DualSense, teste de gatilho adaptável, teste touchpad DualSense">
+<meta name="author" content="MeoWDeV MOD">
+<link rel="canonical" href="https://vendashson-rgb.github.io/ps5-controle-test/">
+<link rel="icon" href="assets/icon.png" type="image/png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PS-5 Controle Test">
+<meta property="og:title" content="PS-5 Controle Test — Teste e calibre seu DualSense pelo celular">
+<meta property="og:description" content="App Android para testar, validar e calibrar o controle DualSense do PS5 pelo cabo USB. 2 dias grátis.">
+<meta property="og:image" content="https://vendashson-rgb.github.io/ps5-controle-test/assets/icon.png">
+<meta property="og:url" content="https://vendashson-rgb.github.io/ps5-controle-test/">
+<meta property="og:locale" content="pt_BR">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PS-5 Controle Test — Teste e calibre seu DualSense pelo celular">
+<meta name="twitter:description" content="App Android para testar, validar e calibrar o controle DualSense do PS5 pelo cabo USB.">
+<meta name="twitter:image" content="https://vendashson-rgb.github.io/ps5-controle-test/assets/icon.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PS-5 Controle Test",
+  "description": "App Android que testa, valida e calibra o controle DualSense do PS5 pelo cabo USB: botões, analógicos, gatilhos, touchpad, giroscópio, vibração, luzes, alto-falante e microfone.",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Android 8.0+",
+  "offers": { "@type": "Offer", "price": "24.80", "priceCurrency": "BRL", "description": "Plano anual, com 2 dias de teste grátis" },
+  "author": { "@type": "Organization", "name": "MeoWDeV MOD" },
+  "creator": { "@type": "Person", "name": "Jefferson Honorio" },
+  "downloadUrl": "https://github.com/vendashson-rgb/ps5-controle-test/releases/latest",
+  "image": "https://vendashson-rgb.github.io/ps5-controle-test/assets/icon.png",
+  "inLanguage": "pt-BR"
+}
+</script>
+
+<style>
+  :root{
+    --bg:#000000; --bg-alt:#06091a; --panel:#0c1228; --border:#22305a;
+    --fg:#e6e8ec; --fg-muted:#9aa6c4; --accent:#2e8bff; --accent2:#8b5cf6; --ok:#4edea3; --warn:#ffd86b;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; color:var(--fg); line-height:1.55;
+    font-family:"Segoe UI", -apple-system, Arial, sans-serif;
+    background:radial-gradient(900px 480px at 85% -8%, #2e8bff40, transparent), linear-gradient(#000, #020818 60%, #061a44 100%) fixed;
+  }
+  a{color:var(--ok)}
+  .wrap{max-width:880px; margin:0 auto; padding:0 20px}
+  header{padding:48px 0 24px; text-align:center}
+  .logos{display:flex; gap:14px; justify-content:center; align-items:center; margin-bottom:14px}
+  .logos img{width:76px; height:76px; border-radius:18px}
+  h1{font-size:1.9rem; margin:0 0 6px; color:#fff}
+  .tagline{color:var(--fg-muted); font-size:1.05rem; margin:0 auto 24px; max-width:640px}
+  .cta{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:8px}
+  .btn{
+    display:inline-block; padding:12px 22px; border-radius:14px; font-weight:600; text-decoration:none;
+    background:rgba(255,255,255,.07); color:#fff; border:1px solid var(--border);
+  }
+  .btn.primary{background:linear-gradient(#3b97ff,#0070d1); border-color:#7fc0ff}
+  .btn:hover{filter:brightness(1.15)}
+  .note{color:var(--fg-muted); font-size:.85rem; margin-top:10px}
+  section{padding:28px 0; border-top:1px solid var(--border)}
+  h2{font-size:1.3rem; margin:0 0 12px; color:#fff}
+  p{margin:0 0 12px}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px}
+  .card{background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:16px; padding:14px 16px}
+  .card b{color:#fff}
+  .card span{display:block; color:var(--fg-muted); font-size:.92rem; margin-top:2px}
+  table{width:100%; border-collapse:collapse; font-size:.95rem}
+  th,td{padding:9px 10px; border-bottom:1px solid var(--border); text-align:left; vertical-align:top}
+  th{color:#fff}
+  .yes{color:var(--ok)} .no{color:var(--warn)}
+  .price{font-size:2rem; color:var(--ok); font-weight:700; margin:4px 0}
+  ol,ul{padding-left:22px; margin:0 0 12px} li{margin-bottom:6px}
+  details{background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:14px; padding:10px 14px; margin-bottom:8px}
+  summary{cursor:pointer; font-weight:600; color:#fff}
+  footer{padding:32px 0 48px; text-align:center; color:var(--fg-muted); font-size:.9rem; border-top:1px solid var(--border)}
+  footer img{width:44px; height:44px; vertical-align:middle; margin-right:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="logos"><img src="assets/icon.png" alt="Ícone do PS-5 Controle Test"><img src="assets/logo.png" alt="Logo MeoWDeV MOD"></div>
+  <h1>PS-5 Controle Test</h1>
+  <p class="tagline">Teste, valide e calibre o controle <b>DualSense</b> (PS5) direto no seu celular Android, pelo cabo USB.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/vendashson-rgb/ps5-controle-test/releases/latest/download/PS5-Controle-Test.apk">⬇️ Baixar APK (Android)</a>
+    <a class="btn" href="#preco">💳 Plano anual · R$ 24,80</a>
+    <a class="btn" href="https://github.com/vendashson-rgb/ps5-controle-test/releases">Ver versões no GitHub</a>
+  </div>
+  <p class="note">Android 8.0 ou superior · 2 dias de teste grátis · atualizações avisadas dentro do app</p>
+</header>
+
+<section id="recursos">
+  <h2>O que o app faz</h2>
+  <div class="grid">
+    <div class="card"><b>🎮 Teste ao vivo</b><span>Desenho do DualSense que acende cada botão, o D-pad, os gatilhos (com intensidade) e a tampa dos analógicos se mexendo.</span></div>
+    <div class="card"><b>✅ Validação completa</b><span>Checklist com Passou / Falha / Pular: conector USB, botões, analógicos, trackpad, giroscópio, gatilho adaptável, vibração, luzes, alto-falante, fone e microfone.</span></div>
+    <div class="card"><b>🕹️ Analógicos e drift</b><span>Posição ao vivo, zoom 10x para enxergar drift e gráfico de circularidade com o erro médio em %.</span></div>
+    <div class="card"><b>🖐️ Touchpad e giroscópio</b><span>Janelinha com o rastro dos dedos e gráficos ao vivo do giroscópio e do acelerômetro.</span></div>
+    <div class="card"><b>📳 Vibração e luzes</b><span>Varredura de vibração de um motor ao outro, teste da barra de luz, LEDs de jogador (P1 a P4) e LED do Mute.</span></div>
+    <div class="card"><b>🔧 Calibração</b><span>Calibra o centro e o alcance dos analógicos e salva no controle (mesmo recurso do dualshock-tools).</span></div>
+  </div>
+</section>
+
+<section id="compatibilidade">
+  <h2>Compatibilidade: 100% via cabo USB</h2>
+  <p>O app foi feito para funcionar com o controle conectado ao celular por um cabo USB (OTG). Por Bluetooth o Android entrega só parte dos dados do controle.</p>
+  <table>
+    <tr><th>Recurso</th><th>Cabo USB</th><th>Bluetooth</th></tr>
+    <tr><td>Botões, D-pad, gatilhos e analógicos</td><td class="yes">✔ completo</td><td class="yes">✔</td></tr>
+    <tr><td>Touchpad (toque e clique)</td><td class="yes">✔</td><td class="yes">✔</td></tr>
+    <tr><td>Botão Mute</td><td class="yes">✔</td><td class="no">limitado</td></tr>
+    <tr><td>Giroscópio e acelerômetro</td><td class="yes">✔</td><td class="no">✘</td></tr>
+    <tr><td>Vibração em dois motores, luzes e gatilho adaptável</td><td class="yes">✔</td><td class="no">✘</td></tr>
+    <tr><td>Alto-falante e fone do controle</td><td class="yes">✔</td><td class="no">✘</td></tr>
+    <tr><td>Calibração dos analógicos</td><td class="yes">✔</td><td class="no">✘</td></tr>
+  </table>
+</section>
+
+<section id="preco">
+  <h2>Preço e teste grátis</h2>
+  <div class="price">R$ 24,80 <span style="font-size:1rem;color:var(--fg-muted);font-weight:400">/ ano</span></div>
+  <ul>
+    <li><b>2 dias de teste grátis</b> com todos os recursos.</li>
+    <li>Depois, plano anual de <b>R$ 24,80</b>, pago por <b>PIX</b>. Os dados do PIX aparecem dentro do app.</li>
+    <li>Você envia o comprovante junto com o código do aparelho e o acesso é liberado por 1 ano.</li>
+  </ul>
+</section>
+
+<section id="instalacao">
+  <h2>Instalação</h2>
+  <ol>
+    <li>Toque em <b>Baixar APK</b> acima, direto no celular Android.</li>
+    <li>Ao abrir o arquivo, o Android pede para permitir a instalação de apps desta fonte. Autorize.</li>
+    <li>Se o Google Play Protect avisar sobre um app desconhecido, toque em <b>Instalar mesmo assim</b> (o app é novo e não é distribuído pela Play Store).</li>
+    <li>Conecte o DualSense ao celular com um cabo USB e abra o app.</li>
+  </ol>
+  <p>Depois de instalado, o app <b>avisa quando existe uma versão nova</b> e atualiza com um toque.</p>
+</section>
+
+<section id="faq">
+  <h2>Perguntas frequentes</h2>
+  <details><summary>Por que o aviso de app desconhecido?</summary><p>O app é distribuído por este site, e não pela Google Play. O Android e o Play Protect avisam sobre qualquer APK instalado por fora. O APK é assinado com um certificado próprio (MeoWDeV MOD).</p></details>
+  <details><summary>Funciona com DualShock 4 ou controle de Xbox?</summary><p>O foco é o DualSense (PS5). Outros controles abrem um layout genérico com os testes básicos de botões e analógicos.</p></details>
+  <details><summary>Preciso de internet?</summary><p>Só para validar a licença e checar atualizações. Os testes do controle funcionam offline.</p></details>
+  <details><summary>A calibração pode estragar meu controle?</summary><p>A calibração só fica permanente depois de tocar em "Salvar alterações permanentemente", e usa os mesmos comandos do dualshock-tools. Mesmo assim, use só se os analógicos estiverem com problema.</p></details>
+</section>
+
+<footer>
+  <img src="assets/logo.png" alt="MeoWDeV MOD">Developed by <b>MeoWDeV MOD</b><br>
+  <a href="https://github.com/vendashson-rgb/ps5-controle-test">GitHub</a> ·
+  <a href="https://github.com/vendashson-rgb/ps5-controle-test/releases">Versões</a> ·
+  <a href="https://vendashson-rgb.github.io/ps5-hdmi-tool/">PS5 HDMI Tool</a><br>
+  <span>PS5 e DualSense são marcas da Sony Interactive Entertainment. Este projeto não é afiliado à Sony.</span>
+</footer>
+
+</div>
+</body>
+</html>
