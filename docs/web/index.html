@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PS-5 Controle Test Web</title>
+<meta name="description" content="Teste de botões, analógicos e gatilhos do DualSense (PS5) no iPhone e iPad, direto no Safari.">
+<meta name="theme-color" content="#050b1e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="PS5 Teste">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{
+  --bg:#050b1e; --glass:rgba(255,255,255,.07); --glass2:rgba(255,255,255,.13); --line:rgba(160,200,255,.22);
+  --text:#f2f6ff; --muted:#bccbe8; --blue:#2f80ff; --cyan:#59c8ff; --ok:#4edea3; --warn:#ffd86b; --bad:#ff6b6b;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif}
+body{min-height:100vh;background:radial-gradient(900px 500px at 15% -10%,#14378a 0%,transparent 60%),radial-gradient(800px 500px at 100% 0%,#0a2a66 0%,transparent 55%),var(--bg);
+  padding:max(14px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) calc(84px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+.wrap{max-width:760px;margin:0 auto}
+header{text-align:center;padding:6px 0 12px}
+header img{width:54px;height:54px;border-radius:14px}
+h1{font-size:22px;margin:6px 0 2px;font-weight:600}
+.sub{color:var(--muted);font-size:12px}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:20px;padding:14px 16px;margin:12px 0;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.card h2{font-size:13px;margin:0 0 10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+#status{display:flex;gap:10px;align-items:center}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--bad);flex:none}
+.dot.on{background:var(--ok)}
+#notice{font-size:13px;color:var(--muted)}
+#notice b{color:var(--text)}
+.btns{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px}
+.chip{padding:10px 6px;text-align:center;border-radius:14px;border:1px solid var(--line);background:var(--glass);font-size:13px;color:var(--muted);transition:background .06s,transform .06s}
+.chip.tested{color:var(--text);border-color:rgba(78,222,163,.5)}
+.chip.tested::after{content:" ✓";color:var(--ok)}
+.chip.down{background:linear-gradient(180deg,#4da0ff,#1f62d8);color:#fff;border-color:#9bd0ff;transform:scale(.95)}
+.sticks{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stick{text-align:center}
+.stick canvas{width:100%;max-width:300px;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.stick .nums{font:12px ui-monospace,Menlo,monospace;color:var(--muted);margin-top:4px}
+.bar{height:16px;border-radius:9px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2f80ff,#59c8ff)}
+.trg{display:grid;grid-template-columns:34px 1fr 46px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.trg span:last-child{text-align:right;font-family:ui-monospace,Menlo,monospace;color:var(--muted)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.row .t{font-weight:600}.row .d{font-size:12px;color:var(--muted)}
+.badge{flex:none;font-size:12px;padding:4px 10px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.badge.ok{color:var(--ok);border-color:rgba(78,222,163,.5)}
+.badge.warn{color:var(--warn);border-color:rgba(255,216,107,.5)}
+.badge.bad{color:var(--bad);border-color:rgba(255,107,107,.5)}
+button.b{font:inherit;color:var(--text);background:var(--glass2);border:1px solid var(--line);border-radius:14px;padding:10px 16px;min-height:44px}
+button.b.p{background:linear-gradient(180deg,#4da0ff,#1f62d8);border-color:#9bd0ff}
+button.b:active{transform:scale(.97)}
+.summary{font-size:28px;font-weight:600}
+.hidden{display:none!important}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(8,16,40,.7);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-top:1px solid var(--line)}
+nav button{flex:1;max-width:240px;font:inherit;font-weight:600;color:var(--muted);background:none;border:1px solid transparent;border-radius:14px;padding:11px}
+nav button.on{color:#fff;background:var(--glass2);border-color:var(--line)}
+.install{font-size:13px}
+.foot{text-align:center;color:var(--muted);font-size:12px;padding:14px 0}
+#log{font:11px ui-monospace,Menlo,monospace;color:var(--muted);max-height:120px;overflow:auto;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="icon-192.png" alt="">
+    <h1>PS-5 Controle Test <span class="badge">Web · beta</span></h1>
+    <div class="sub">Versão para iPhone e iPad · Developed by MeoWDeV MOD</div>
+  </header>
+
+  <section class="card" id="statusCard">
+    <div id="status"><span class="dot" id="dot"></span><div><b id="stTitle">Nenhum controle detectado</b><div class="sub" id="stSub">Conecte o DualSense e aperte qualquer botão.</div></div></div>
+    <div id="notice" style="margin-top:10px"></div>
+  </section>
+
+  <!-- ===== CONTROLE ===== -->
+  <div id="pageTest">
+    <section class="card"><h2>Botões</h2><div class="btns" id="btns"></div></section>
+    <section class="card"><h2>Analógicos</h2>
+      <div class="sticks">
+        <div class="stick"><canvas id="cvL" width="300" height="300"></canvas><div class="nums" id="numL"></div></div>
+        <div class="stick"><canvas id="cvR" width="300" height="300"></canvas><div class="nums" id="numR"></div></div>
+      </div>
+    </section>
+    <section class="card"><h2>Gatilhos</h2>
+      <div class="trg"><span>L2</span><div class="bar"><i id="bL2"></i></div><span id="vL2">0%</span></div>
+      <div class="trg"><span>R2</span><div class="bar"><i id="bR2"></i></div><span id="vR2">0%</span></div>
+    </section>
+    <section class="card"><h2>Vibração</h2>
+      <button class="b p" id="btnRumble">Testar vibração</button>
+      <div class="sub" id="rumbleMsg" style="margin-top:8px"></div>
+    </section>
+  </div>
+
+  <!-- ===== VALIDAÇÃO ===== -->
+  <div id="pageVal" class="hidden">
+    <section class="card"><div class="sub">Resultado</div><div class="summary" id="sum">0 / 5</div>
+      <div class="sub">Aperte todos os botões, gire os dois analógicos em círculo completo e aperte os gatilhos até o fim.</div>
+      <div style="margin-top:10px"><button class="b" id="btnReset">Zerar testes</button></div></section>
+    <section class="card" id="valList"></section>
+    <section class="card"><h2>Eventos</h2><div id="log"></div></section>
+  </div>
+
+  <section class="card install">
+    <h2>Instalar como app</h2>
+    No Safari, toque em <b>Compartilhar</b> (□↑) → <b>Adicionar à Tela de Início</b>. Ele abre em tela cheia e funciona offline.
+  </section>
+  <div class="foot">Esta versão web lê botões, analógicos e gatilhos. Calibração, som, luzes, touchpad, giroscópio e USB direto existem só no app Android.</div>
+</div>
+
+<nav>
+  <button id="tabTest" class="on">Controle</button>
+  <button id="tabVal">Validação</button>
+</nav>
+
+<script>
+"use strict";
+// ---- mapeamento padrão (Gamepad API, "standard") do DualSense
+const NAMES = ["✕ Cruz","◯ Bola","□ Quadrado","△ Triângulo","L1","R1","L2","R2","Create","Options","L3","R3","↑","↓","←","→","PS","Touchpad","Mute"];
+const tested = new Set();
+const sectors = {L: new Array(36).fill(0), R: new Array(36).fill(0)};
+const maxTrig = {6: 0, 7: 0};
+const drift = {L: null, R: null};
+let log = [];
+let pad = null;
+const $ = (id) => document.getElementById(id);
+
+// ---- chips de botão
+const chips = NAMES.map((n, i) => {
+  const d = document.createElement("div"); d.className = "chip"; d.textContent = n; d.dataset.i = i; $("btns").appendChild(d); return d;
+});
+
+// ---- avisos
+(function notice() {
+  const ua = navigator.userAgent;
+  const ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  $("notice").innerHTML = ios
+    ? "No iPhone/iPad o controle é lido por <b>Bluetooth</b> (ou cabo USB-C no iPhone 15+). Se nada aparecer, <b>aperte um botão</b> — o Safari só mostra o controle depois do primeiro toque nele."
+    : "Abra no Safari do iPhone/iPad. Em outros navegadores o teste também funciona, se o controle for reconhecido.";
+})();
+
+// ---- abas
+function tab(v) {
+  $("pageTest").classList.toggle("hidden", v); $("pageVal").classList.toggle("hidden", !v);
+  $("tabTest").classList.toggle("on", !v); $("tabVal").classList.toggle("on", v);
+}
+$("tabTest").onclick = () => tab(false); $("tabVal").onclick = () => tab(true);
+
+function addLog(s) {
+  log.unshift(new Date().toLocaleTimeString("pt-BR") + "  " + s); log = log.slice(0, 40);
+  $("log").textContent = log.join("\n");
+}
+
+// ---- pegar o controle ativo
+function getPad() {
+  const list = (navigator.getGamepads && navigator.getGamepads()) || [];
+  for (const g of list) if (g && g.connected) return g;
+  return null;
+}
+window.addEventListener("gamepadconnected", (e) => addLog("Conectado: " + e.gamepad.id));
+window.addEventListener("gamepaddisconnected", () => addLog("Controle desconectado"));
+
+// ---- analógicos
+function drawStick(cv, x, y, key) {
+  const c = cv.getContext("2d"), s = cv.width, r = s / 2;
+  c.clearRect(0, 0, s, s);
+  c.strokeStyle = "rgba(160,200,255,.25)"; c.lineWidth = 1;
+  [0.33, 0.66, 1].forEach((k) => { c.beginPath(); c.arc(r, r, (r - 6) * k, 0, 7); c.stroke(); });
+  c.beginPath(); c.moveTo(6, r); c.lineTo(s - 6, r); c.moveTo(r, 6); c.lineTo(r, s - 6); c.stroke();
+  // trilha do máximo alcançado em cada setor (gráfico de circularidade)
+  c.beginPath();
+  const sec = sectors[key];
+  for (let i = 0; i <= 36; i++) {
+    const a = ((i % 36) + 0.5) / 36 * Math.PI * 2, m = Math.min(sec[i % 36], 1) * (r - 6);
+    const px = r + Math.cos(a) * m, py = r + Math.sin(a) * m;
+    i ? c.lineTo(px, py) : c.moveTo(px, py);
+  }
+  c.closePath(); c.fillStyle = "rgba(78,222,163,.15)"; c.fill(); c.strokeStyle = "rgba(78,222,163,.8)"; c.lineWidth = 2; c.stroke();
+  // ponto atual
+  const px = r + x * (r - 6), py = r + y * (r - 6);
+  c.beginPath(); c.arc(px, py, 11, 0, 7); c.fillStyle = "#59c8ff"; c.fill();
+}
+function circ(key) {
+  const v = sectors[key].filter((m) => m > 0.15);
+  if (v.length < 30) return null;
+  const mean = v.reduce((a, b) => a + b, 0) / v.length;
+  const err = v.reduce((a, b) => a + Math.abs(b - mean), 0) / v.length / Math.max(mean, 0.01);
+  return { err: err * 100, cover: v.length, mean };
+}
+function stickStep(g, key, ax, ay, keyBtn) {
+  const x = g.axes[ax] || 0, y = g.axes[ay] || 0, m = Math.hypot(x, y);
+  if (m > 0.25) {
+    const s = Math.floor(((Math.atan2(y, x) + Math.PI * 2) % (Math.PI * 2)) / (Math.PI * 2) * 36) % 36;
+    sectors[key][s] = Math.max(sectors[key][s], m);
+  }
+  if (m < 0.2 && drift[key] === null) drift[key] = m;      // leitura em repouso
+  if (m < 0.2) drift[key] = Math.min(drift[key], m);
+  drawStick($(key === "L" ? "cvL" : "cvR"), x, y, key);
+  $(key === "L" ? "numL" : "numR").textContent = `X ${x.toFixed(2)}  Y ${y.toFixed(2)}  |${m.toFixed(2)}|`;
+}
+
+// ---- vibração (o Safari costuma não expor; tentamos mesmo assim)
+$("btnRumble").onclick = async () => {
+  const g = getPad(); const msg = $("rumbleMsg");
+  if (!g) { msg.textContent = "Conecte o controle primeiro."; return; }
+  const act = g.vibrationActuator || (g.hapticActuators && g.hapticActuators[0]);
+  if (!act) { msg.textContent = "Este navegador não libera vibração do controle (limite do iOS). No app Android a vibração funciona."; return; }
+  try {
+    if (act.playEffect) await act.playEffect("dual-rumble", { duration: 600, strongMagnitude: 1, weakMagnitude: 1 });
+    else if (act.pulse) await act.pulse(1, 600);
+    msg.textContent = "Vibração enviada. O controle vibrou?";
+  } catch (e) { msg.textContent = "Falhou: " + e.message; }
+};
+
+// ---- validação
+const ITEMS = [
+  { id: "btn", t: "Botões", d: () => `${tested.size} de ${NAMES.length} testados (Touchpad e Mute dependem do navegador)`, st: () => tested.size >= 17 ? "ok" : tested.size ? "warn" : "idle" },
+  { id: "L", t: "Analógico esquerdo", d: () => stickDesc("L"), st: () => stickSt("L") },
+  { id: "R", t: "Analógico direito", d: () => stickDesc("R"), st: () => stickSt("R") },
+  { id: "L2", t: "Gatilho L2", d: () => `Máximo ${Math.round(maxTrig[6] * 100)}%`, st: () => maxTrig[6] > 0.95 ? "ok" : maxTrig[6] > 0 ? "warn" : "idle" },
+  { id: "R2", t: "Gatilho R2", d: () => `Máximo ${Math.round(maxTrig[7] * 100)}%`, st: () => maxTrig[7] > 0.95 ? "ok" : maxTrig[7] > 0 ? "warn" : "idle" },
+];
+function stickDesc(k) {
+  const c = circ(k), cover = sectors[k].filter((m) => m > 0.15).length;
+  const rest = drift[k] === null ? "" : ` · repouso ${drift[k].toFixed(2)}`;
+  return c ? `Círculo completo · erro médio ${c.err.toFixed(1)}%${rest}` : `Gire em círculo completo (${cover}/36 setores)${rest}`;
+}
+function stickSt(k) {
+  const c = circ(k); if (!c) return sectors[k].some((m) => m > 0.15) ? "warn" : "idle";
+  if (drift[k] !== null && drift[k] > 0.1) return "bad";
+  return c.err < 12 ? "ok" : "warn";
+}
+const LABEL = { idle: "Pendente", ok: "OK", warn: "Em andamento", bad: "Atenção" };
+const rows = ITEMS.map((it) => {
+  const r = document.createElement("div"); r.className = "row";
+  r.innerHTML = `<div><div class="t">${it.t}</div><div class="d"></div></div><span class="badge"></span>`;
+  $("valList").appendChild(r); return r;
+});
+function renderVal() {
+  let ok = 0;
+  ITEMS.forEach((it, i) => {
+    const s = it.st(); if (s === "ok") ok++;
+    rows[i].querySelector(".d").textContent = it.d();
+    const b = rows[i].querySelector(".badge"); b.textContent = LABEL[s]; b.className = "badge " + (s === "idle" ? "" : s);
+  });
+  $("sum").textContent = `${ok} / ${ITEMS.length}`;
+}
+$("btnReset").onclick = () => {
+  tested.clear(); sectors.L.fill(0); sectors.R.fill(0); maxTrig[6] = maxTrig[7] = 0; drift.L = drift.R = null; log = []; $("log").textContent = "";
+};
+
+// ---- laço principal
+let prev = [];
+function loop() {
+  const g = getPad();
+  if (g !== null) {
+    if (!pad || pad.index !== g.index) addLog("Lendo: " + g.id);
+    pad = g;
+    $("dot").classList.add("on"); $("stTitle").textContent = "Controle conectado";
+    $("stSub").textContent = `${g.id} · ${g.buttons.length} botões · ${g.axes.length} eixos` + (g.mapping === "standard" ? "" : " · mapeamento não padrão");
+    g.buttons.forEach((b, i) => {
+      const down = b.pressed || b.value > 0.5;
+      let chip = chips[i];
+      if (!chip) { chip = document.createElement("div"); chip.className = "chip"; chip.textContent = "Extra " + i; $("btns").appendChild(chip); chips[i] = chip; }
+      chip.classList.toggle("down", down);
+      if (down) {
+        if (!tested.has(i)) { tested.add(i); chip.classList.add("tested"); addLog((NAMES[i] || "Extra " + i) + " testado"); }
+      }
+      prev[i] = down;
+    });
+    // analógicos: eixos 0/1 e 2/3
+    stickStep(g, "L", 0, 1); stickStep(g, "R", 2, 3);
+    const l2 = g.buttons[6] ? g.buttons[6].value : 0, r2 = g.buttons[7] ? g.buttons[7].value : 0;
+    maxTrig[6] = Math.max(maxTrig[6], l2); maxTrig[7] = Math.max(maxTrig[7], r2);
+    $("bL2").style.width = l2 * 100 + "%"; $("vL2").textContent = Math.round(l2 * 100) + "%";
+    $("bR2").style.width = r2 * 100 + "%"; $("vR2").textContent = Math.round(r2 * 100) + "%";
+    renderVal();
+  } else if (pad) {
+    pad = null; $("dot").classList.remove("on"); $("stTitle").textContent = "Nenhum controle detectado";
+    $("stSub").textContent = "Conecte o DualSense e aperte qualquer botão.";
+  }
+  requestAnimationFrame(loop);
+}
+drawStick($("cvL"), 0, 0, "L"); drawStick($("cvR"), 0, 0, "R"); renderVal();
+requestAnimationFrame(loop);
+
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+</script>
+</body>
+</html>
